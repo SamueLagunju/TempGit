@@ -1,6 +1,4 @@
-#Push trigger the workflow when someone pushes the code to the  repo.
-on:
-# Defining a job which runs on ubuntu latest
+on: push
 name: Build Angular
 jobs:
   build:
@@ -10,11 +8,8 @@ jobs:
         node-version: [12.x]
 
     steps:
-      # The first step in our workflow.
-      # Pulls the source code from the repository using a GitHub Action called checkout.
-      # This action checks out your repository to $GITHUB_WORKSPACE
       - uses: actions/checkout@v1
-      # Using a GitHub action called cache to cache the node modules.
+
       - name: Cache node modules
         uses: actions/cache@v1
         with:
@@ -22,12 +17,10 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      # Sets up a Node environment for use in actions.
       - name: Node ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      # Install the required packages and then run the Angular build command to create the build package.
       - name: npm install and npm run build
         run: |
           npm i
