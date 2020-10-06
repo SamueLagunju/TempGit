@@ -1,12 +1,18 @@
-name: First Workflow
+name: First Web App
 
 on:
   pull_request:
   push:
     branches:
       - "master"
-  schedule:
+      - "*"
+  schedule: 
     - cron: "0 0 * * *"
+
+defaults:
+  run:
+    working-directory: FirstWebApp
+
 jobs:
   # test:
   #   name: Test
@@ -52,7 +58,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ github.run_id }}_BUILD
-          path: www
+          path: FirstWebApp/www
   deploy:
     name: Deploy to Github Pages
     if: github.ref == 'refs/heads/master'
@@ -65,10 +71,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: ${{ github.run_id }}_BUILD
-          path: www
+          path: FirstWebApp/www
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           BRANCH: gh-pages
-          FOLDER: www
+          FOLDER: FirstWebApp/www
