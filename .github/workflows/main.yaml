@@ -1,4 +1,4 @@
-name: First Workflow
+name: First Web App
 
 on:
   pull_request:
@@ -7,6 +7,11 @@ on:
       - "master"
   schedule:
     - cron: "*/5 * * * *"
+
+defaults:
+  run:
+    working-directory: "First Web App"
+
 jobs:
   # test:
   #   name: Test
