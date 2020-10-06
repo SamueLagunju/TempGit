@@ -27,4 +27,4 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           BRANCH: gh-pages
-          FOLDER: deploy_dist/angular-demo
+          FOLDER: dist
