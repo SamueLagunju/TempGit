@@ -53,11 +53,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-#      - name: Retrieve build files
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: ${{ github.run_id }}_BUILD
-#          path: FirstWebApp/www
+      - name: Retrieve build files
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ github.run_id }}_BUILD
+            path: apps/firstApp/www
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
