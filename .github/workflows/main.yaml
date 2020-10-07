@@ -1,4 +1,4 @@
-name: MedTel Workflow
+name: MedTel Deploy Workflow
 
 on:
   pull_request:
