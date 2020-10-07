@@ -71,7 +71,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: ${{ github.run_id }}_BUILD
-          path: FirstWebApp/www
+          path: anotherProject/www
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
