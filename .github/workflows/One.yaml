@@ -44,7 +44,7 @@ jobs:
           uses: actions/upload-artifact@v2
           with:
             name: ${{ github.run_id }}_BUILD
-            path: firstApp/www
+            path: apps/firstApp/www
 #  deploy:
 #    name: Deploy to Github Pages
 #    if: github.ref == 'refs/heads/master'
