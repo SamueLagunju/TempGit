@@ -9,9 +9,9 @@ on:
   schedule:
     - cron: "0 0 * * *"
 
-defaults:
-  run:
-    working-directory: apps/firstApp
+#defaults:
+#  run:
+#    working-directory: apps/firstApp
 
 jobs:
   build:
