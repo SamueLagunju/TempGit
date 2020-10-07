@@ -1,4 +1,4 @@
-name: First Web App
+name: MedTel Workflow
 
 on:
   pull_request:
