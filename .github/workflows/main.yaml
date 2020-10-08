@@ -59,7 +59,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: ${{ github.run_id }}_BUILD
-          path: ./www
+          path: www
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
