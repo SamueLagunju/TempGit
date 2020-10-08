@@ -58,7 +58,7 @@ jobs:
 
   collect_root_app:
     name: Collect root app to deploy folder
-    # if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     needs: build
     steps:
@@ -79,7 +79,7 @@ jobs:
 
   collect_builds:
     name: Collect builds to deploy folder
-    # if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     needs: build
     strategy:
@@ -106,7 +106,7 @@ jobs:
 
   deploy:
     name: Deploy to Github Pages
-    # if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     needs:
       - collect_builds
