@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        app_name: [${{ env.FIRST_APP }} , ${{ SECOND_APP }}, ${{ ANOTHER_APP }}]
+    app_name: [${{ env.FIRST_APP }} , ${{ SECOND_APP }}, ${{ ANOTHER_APP }}]
     defaults:
       run:
         working-directory: apps/${{ matrix.app_name }}
