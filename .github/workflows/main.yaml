@@ -74,4 +74,4 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           BRANCH: gh-pages
-          FOLDER: ${{ github.workspace }}/deploy
+          FOLDER: deploy
