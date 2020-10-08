@@ -1,4 +1,4 @@
-name: Building First App
+name: Building Third App
 
 on:
   pull_request:
@@ -11,7 +11,7 @@ on:
 
 defaults:
   run:
-    working-directory: apps/firstApp
+    working-directory: apps/anotherApp
 
 jobs:
   build:
@@ -44,4 +44,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ github.run_id }}_BUILD
-          path: apps/firstApp/www
+          path: apps/anotherApp/www
