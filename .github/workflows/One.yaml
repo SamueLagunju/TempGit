@@ -14,7 +14,7 @@ on:
       run_id:
         description: "The run id to use."
         required: false
-        default: ${{ github.run_id }}
+        default: $GITHUB_RUN_ID
 
 defaults:
   run:
