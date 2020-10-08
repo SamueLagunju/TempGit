@@ -20,6 +20,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        run: mkdir -p ./www
 
       - name: Use Node 12.x
         uses: actions/setup-node@v1
@@ -43,7 +44,6 @@ jobs:
         run: npm run build
       - name: Persist build files
         uses: actions/upload-artifact@v2
-        run: mkdir -p ./www
         with:
           name: ${{ github.run_id }}_BUILD
           path: ./www
@@ -59,7 +59,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: ${{ github.run_id }}_BUILD
-          path: www
+          path: ./www
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
