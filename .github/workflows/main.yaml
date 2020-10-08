@@ -74,7 +74,7 @@ jobs:
       - name: Persist build files
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ github.run_id }}_BUILD
+          name: ${{ github.run_id }}_DEPLOY
           path: deploy
 
   collect_builds:
@@ -92,7 +92,7 @@ jobs:
       - name: Retrieve deploy files
         uses: actions/download-artifact@v2
         with:
-          name: ${{ github.run_id }}_BUILD
+          name: ${{ github.run_id }}_DEPLOY
           path: ${{ github.workspace }}/deploy
       - name: Retrieve build files
         uses: actions/download-artifact@v2
@@ -106,10 +106,10 @@ jobs:
           mkdir ${{ github.workspace }}/deploy/apps/${{ matrix.app_name }}
       - name: Copy to ${{ matrix.app_name }} to deploy folder
         run: cp -r www ${{ github.workspace }}/deploy/apps/${{ matrix.app_name }}
-      - name: Persist build files
+      - name: Persist deploy files
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ github.run_id }}_BUILD
+          name: ${{ github.run_id }}_DEPLOY
           path: deploy
 
   deploy:
@@ -121,7 +121,7 @@ jobs:
       - name: Retrieve build files
         uses: actions/download-artifact@v2
         with:
-          name: ${{ github.run_id }}_BUILD
+          name: ${{ github.run_id }}_DEPLOY
           path: deploy
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
