@@ -89,11 +89,6 @@ jobs:
       run:
         working-directory: apps/${{ matrix.app_name }}
     steps:
-      # - name: Retrieve deploy files
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: ${{ github.run_id }}_DEPLOY
-      #     path: ${{ github.workspace }}/deploy
       - name: Retrieve build files
         uses: actions/download-artifact@v2
         with:
@@ -101,9 +96,9 @@ jobs:
           path: apps/${{ matrix.app_name }}/www
       - name: Create deploy folder
         run: |
-          mkdir ${{ github.workspace }}/deploy
-          mkdir ${{ github.workspace }}/deploy/apps
-          mkdir ${{ github.workspace }}/deploy/apps/${{ matrix.app_name }}
+          mkdir deploy
+          mkdir deploy/apps
+          mkdir deploy/apps/${{ matrix.app_name }}
       - name: Copy to ${{ matrix.app_name }} to deploy folder
         run: cp -r www ${{ github.workspace }}/deploy/apps/${{ matrix.app_name }}
       - name: Persist deploy files
@@ -128,6 +123,6 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
           FOLDER: deploy
