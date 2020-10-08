@@ -9,6 +9,7 @@ on:
   schedule:
     - cron: "0 0 * * *"
 
+# TODO use these
 env:
   FIRST_APP: firstApp
   SECOND_APP: secondApp
@@ -52,49 +53,76 @@ jobs:
       - name: Persist build files
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ github.run_id }}_BUILD
+          name: ${{ github.run_id }}_BUILD_${{ matrix.app_name }}
           path: apps/${{ matrix.app_name }}/www
-  deploy:
-    name: Deploy to Github Pages
+
+  collect_root_app:
+    name: Collect root app to deploy folder
     # if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     needs: build
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      # TODO Clean this
+      - name: Create deploy folder
+        run: |
+          mkdir deploy
+      - name: Copy root app to deploy folder
+        run: |
+          cp index.html deploy
+          cp -r css deploy
+      - name: Persist build files
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ github.run_id }}_BUILD
+          path: deploy
+
+  collect_builds:
+    name: Collect builds to deploy folder
+    # if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      matrix:
+        app_name: [firstApp, secondApp, anotherApp]
+    defaults:
+      run:
+        working-directory: apps/${{ matrix.app_name }}
+    steps:
+      - name: Retrieve deploy files
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ github.run_id }}_BUILD
+          path: ${{ github.workspace }}/deploy
       - name: Retrieve build files
         uses: actions/download-artifact@v2
         with:
           name: ${{ github.run_id }}_BUILD
-          path: apps/firstApp/www
-      - name: Retrieve build files
-        uses: actions/download-artifact@v2
-        with:
-          name: ${{ github.run_id }}_BUILD
-          path: apps/secondApp/www
-      - name: Retrieve build files
-        uses: actions/download-artifact@v2
-        with:
-          name: ${{ github.run_id }}_BUILD
-          path: apps/anotherApp/www
+          path: apps/${{ matrix.app_name }}/www
       - name: Create deploy folder
         run: |
           mkdir ${{ github.workspace }}/deploy
           mkdir ${{ github.workspace }}/deploy/apps
-          mkdir ${{ github.workspace }}/deploy/apps/FirstWebApp
-          mkdir ${{ github.workspace }}/deploy/apps/SecondWebApp
-          mkdir ${{ github.workspace }}/deploy/apps/AnotherWebApp
-      - name: Copy to FirstWebApp to deploy folder
-        run: cp -r apps/firstApp/www ${{ github.workspace }}/deploy/apps/FirstWebApp
-      - name: Copy to Second to deploy folder
-        run: cp -r apps/secondApp/www ${{ github.workspace }}/deploy/apps/SecondWebApp
-      - name: Copy to Third to deploy folder
-        run: cp -r apps/anotherApp/www ${{ github.workspace }}/deploy/apps/AnotherWebApp
-      - name: Copy root app to deploy folder
-        run: |
-          cp ${{ github.workspace }}/index.html ${{ github.workspace }}/deploy
-          cp -r ${{ github.workspace }}/css ${{ github.workspace }}/deploy
+          mkdir ${{ github.workspace }}/deploy/apps/${{ matrix.app_name }}
+      - name: Copy to ${{ matrix.app_name }} to deploy folder
+        run: cp -r www ${{ github.workspace }}/deploy/apps/${{ matrix.app_name }}
+      - name: Persist build files
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ github.run_id }}_BUILD
+          path: deploy
+
+  deploy:
+    name: Deploy to Github Pages
+    # if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    needs: collect_builds
+    steps:
+      - name: Retrieve build files
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ github.run_id }}_BUILD
+          path: deploy
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
