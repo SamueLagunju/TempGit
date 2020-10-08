@@ -1,24 +1,20 @@
 name: Building First App
 
 on:
-  #  pull_request:
-  #  push:
-  #    branches:
-  #      - "master"
-  #      - "*"
-  #  schedule:
-  #    - cron: "0 0 * * *"
-  #
-  workflow_dispatch:
-    inputs:
-      run_id:
-        description: "The run id to use."
-        required: false
-        default: $GITHUB_RUN_ID
+  pull_request:
+  push:
+    branches:
+      - "master"
+      - "*"
+  schedule:
+    - cron: "0 0 * * *"
 
 defaults:
   run:
     working-directory: apps/firstApp
+
+env:
+  APP_NAME: FirstWebApp
 
 jobs:
   build:
@@ -50,5 +46,5 @@ jobs:
       - name: Persist build files
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ github.event.inputs.run_id }}_BUILD
+          name: FirstWebApp_BUILD
           path: apps/firstApp/www
