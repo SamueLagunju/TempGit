@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        app_name: [${{ env.FIRST_APP }} , ${{ env.SECOND_APP }}, ${{ env.ANOTHER_APP }}]
+        app_name: [${{ env.FIRST_APP }} , ${{ SECOND_APP }}, ${{ ANOTHER_APP }}]
     defaults:
       run:
         working-directory: apps/${{ matrix.app_name }}
@@ -83,7 +83,7 @@ jobs:
     needs: build
     strategy:
       matrix:
-        app_name: [${{ env.FIRST_APP }} , ${{ env.SECOND_APP }}, ${{ env.ANOTHER_APP }}]
+        app_name: [${{ env.FIRST_APP }} , ${{ SECOND_APP }}, ${{ ANOTHER_APP }}]
     steps:
       - name: Retrieve build files
         uses: actions/download-artifact@v2
