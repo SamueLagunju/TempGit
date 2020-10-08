@@ -68,7 +68,7 @@ jobs:
       - name: Copy root app to deploy folder
         run: |
           cp ${{ github.workspace }}/index.html ${{ github.workspace }}/deploy
-          cp ${{ github.workspace }}/css ${{ github.workspace }}/deploy
+          cp -r ${{ github.workspace }}/css ${{ github.workspace }}/deploy
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
