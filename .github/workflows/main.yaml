@@ -61,7 +61,7 @@ jobs:
       - name: Create deploy folder
         run: mkdir ${{ github.workspace }}/deploy
       - name: Copy to FirstWebApp to deploy folder
-        run: cp www ${{ github.workspace }}/deploy/apps/FirstWebApp
+        run: cp -r www ${{ github.workspace }}/deploy/apps/FirstWebApp
       - name: Copy root app to deploy folder
         run: |
           cp ${{ github.workspace }}/index.html ${{ github.workspace }}/deploy
