@@ -22,7 +22,7 @@ jobs:
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: Building First App
-          token: ${{ secrets.Deploy_Token }}
+          token: ${{ secrets.CI_TOKEN }}
   deploy:
     name: Deploy to Github Pages
 #    if: github.ref == 'refs/heads/master'
