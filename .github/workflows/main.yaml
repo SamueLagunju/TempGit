@@ -63,9 +63,9 @@ jobs:
       - name: Copy to FirstWebApp to deploy folder
         run: copy www ${{ github.workspace }}/deploy/apps/FirstWebApp
       - name: Copy root app to deploy folder
-          run: |
-            copy ${{ github.workspace }}/index.html ${{ github.workspace }}/deploy
-            copy ${{ github.workspace }}/css ${{ github.workspace }}/deploy
+        run: |
+          copy ${{ github.workspace }}/index.html ${{ github.workspace }}/deploy
+          copy ${{ github.workspace }}/css ${{ github.workspace }}/deploy
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
