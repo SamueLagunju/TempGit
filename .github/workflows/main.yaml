@@ -97,7 +97,7 @@ jobs:
       - name: Retrieve build files
         uses: actions/download-artifact@v2
         with:
-          name: ${{ github.run_id }}_BUILD
+          name: ${{ github.run_id }}_BUILD_${{ matrix.app_name }}
           path: apps/${{ matrix.app_name }}/www
       - name: Create deploy folder
         run: |
