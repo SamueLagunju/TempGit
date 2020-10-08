@@ -1,6 +1,11 @@
 name: MedTel Deploy Workflow
 
 on:
+  workflow_run:
+    workflows: [ "Building First App" ]
+    branches: [ master ]
+    types:
+      - completed
   pull_request:
   push:
     branches:
