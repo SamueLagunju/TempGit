@@ -43,10 +43,10 @@ jobs:
         run: npm run build
       - name: Persist build files
         uses: actions/upload-artifact@v2
+        run: mkdir -p ./www
         with:
           name: ${{ github.run_id }}_BUILD
-          path: www
-          working-directory: www
+          path: ./www
   deploy:
     name: Deploy to Github Pages
     if: github.ref == 'refs/heads/master'
@@ -59,7 +59,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: ${{ github.run_id }}_BUILD
-          path: ./www
+          path: www
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
