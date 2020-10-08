@@ -96,9 +96,9 @@ jobs:
           path: apps/${{ matrix.app_name }}/www
       - name: Create deploy folder
         run: |
-          mkdir deploy
-          mkdir deploy/apps
-          mkdir deploy/apps/${{ matrix.app_name }}
+          mkdir ${{ github.workspace }}/deploy
+          mkdir ${{ github.workspace }}/deploy/apps
+          mkdir ${{ github.workspace }}/deploy/apps/${{ matrix.app_name }}
       - name: Copy to ${{ matrix.app_name }} to deploy folder
         run: cp -r www ${{ github.workspace }}/deploy/apps/${{ matrix.app_name }}
       - name: Persist deploy files
