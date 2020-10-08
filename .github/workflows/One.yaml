@@ -1,14 +1,14 @@
 name: Building First App
 
 on:
-
-  pull_request:
-  push:
-    branches:
-      - "master"
-      - "*"
-  schedule:
-    - cron: "0 0 * * *"
+#  pull_request:
+#  push:
+#    branches:
+#      - "master"
+#      - "*"
+#  schedule:
+#    - cron: "0 0 * * *"
+#
   workflow_dispatch:
 
 defaults:
