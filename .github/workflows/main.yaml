@@ -9,9 +9,9 @@ on:
   schedule:
     - cron: "0 0 * * *"
 
-#defaults:
-#  run:
-#    working-directory: apps/firstApp
+defaults:
+  run:
+    working-directory: apps/firstApp
 
 jobs:
   build:
@@ -20,6 +20,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Use Node 12.x
         uses: actions/setup-node@v1
         with:
@@ -45,6 +46,7 @@ jobs:
         with:
           name: ${{ github.run_id }}_BUILD
           path: www
+          working-directory: www
   deploy:
     name: Deploy to Github Pages
     if: github.ref == 'refs/heads/master'
@@ -57,7 +59,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: ${{ github.run_id }}_BUILD
-          path: www
+          path: ./www
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
