@@ -1,13 +1,20 @@
 name: Building Second App
 
 on:
-  pull_request:
-  push:
-    branches:
-      - "master"
-      - "*"
-  schedule:
-    - cron: "0 0 * * *"
+  #  pull_request:
+  #  push:
+  #    branches:
+  #      - "master"
+  #      - "*"
+  #  schedule:
+  #    - cron: "0 0 * * *"
+  #
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "The run id to use."
+        required: false
+        default: $GITHUB_RUN_ID
 
 defaults:
   run:
