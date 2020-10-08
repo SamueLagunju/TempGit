@@ -18,8 +18,6 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: Making www directory
-        run: mkdir -p ./www
 
       - name: Checkout
         uses: actions/checkout@v2
@@ -47,7 +45,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ github.run_id }}_BUILD
-          path: ./www
+          path: apps/firstApp
   deploy:
     name: Deploy to Github Pages
     if: github.ref == 'refs/heads/master'
@@ -60,7 +58,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: ${{ github.run_id }}_BUILD
-          path: ./www
+          path: apps/firstApp
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
